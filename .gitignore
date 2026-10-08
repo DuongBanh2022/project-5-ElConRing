@@ -1,0 +1,30 @@
+```gitignore
+# Unity generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# Visual Studio
+.vs/
+.idea/
+
+# Generated project files
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+
+# Unity generated files
+MemoryCaptures/
+Recordings/
+sysinfo.txt
+
+# Operating system files
+.DS_Store
+Thumbs.db
+```
