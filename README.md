@@ -4,9 +4,11 @@
 
 ## Project Overview
 
-El Con Ring is a 2D Unity game featuring player movement, jumping, combat, enemy encounters, breakable objects, checkpoints, and persistent save data. The game includes a main menu, loading scene, gameplay scene, pause menu, interactive chest, and level-completion system.
+El Con Ring is a 2D Unity metroidvania game featuring player movement, jumping, combat, enemy encounters, breakable objects, checkpoints, and persistent save data. 
 
 ## Script Summary
+
+The game consists of a main menu, loading scene, gameplay scene, basic combat interaction, 2D environment, pause menu, interactive chest, and level-completion system.
 
 | Script | Purpose |
 |---|---|
@@ -37,7 +39,7 @@ El Con Ring is a 2D Unity game featuring player movement, jumping, combat, enemy
 
 ### MainMenu
 
-The MainMenu scene is the starting scene of the game.
+The MainMenu scene is the game's starting scene.
 
 **Key GameObjects**
 - Main Camera
@@ -56,7 +58,7 @@ The player first sees the press-any-button screen. After input is detected, the 
 
 ### LoadingScenes (New/Continue/Exit)
 
-The LoadingScene provides a transition between the Main Menu and Gameplay scenes.
+The LoadingScene transitions between the Main Menu and Gameplay scenes.
 
 **Key GameObjects**
 - Main Camera
@@ -103,11 +105,11 @@ The project contains a Main Menu, LoadingScene, and Gameplay scene. New Game loa
 
 ### Requirement 2 — Input System Player Control
 
-Player movement and jumping use the Unity Input System through the `PlayerControls.inputactions` asset rather than the legacy Input Manager.
+Player movement and jumping use the Unity Input System through the `PlayerControls.inputactions` asset.
 
 ### Requirement 3 — Tilemap Level Layout
 
-The Gameplay scene uses the `ChapelGround` Tilemap to create the playable level. A `TilemapCollider2D` provides collision between the level and the player.
+The Gameplay scene uses the `ChapelGround` and `Grid` Tilemap to create the playable level. A `TilemapCollider2D` provides collision between the level and the player.
 
 ### Requirement 4 — Prefab Pooling
 
@@ -119,7 +121,7 @@ The project uses tags, layers, and trigger interactions. Checkpoints detect the 
 
 ### Requirement 6 — Pause Menu
 
-The Gameplay scene contains a pause menu that can be opened with Escape. `PauseManager` uses `Time.timeScale = 0` to stop gameplay and provides Resume, Save Checkpoint, and Quit to Main Menu functionality.
+The Gameplay scene includes a pause menu that opens with Escape. `PauseManager` uses `Time.timeScale = 0` to stop gameplay and provides Resume, Save Checkpoint, and Quit to Main Menu functionality.
 
 ### Requirement 7 — PlayerPrefs Persistence
 
@@ -139,11 +141,11 @@ The project uses Unity's built-in systems and packages, including:
 - Unity Physics 2D for Rigidbody2D, Collider2D, and trigger interactions.
 - Unity Animator for player movement and swing animations.
 
-Some visual assets, sprites, sounds, or animation assets may originate from third-party sources or course-provided resources. These assets are used as project resources rather than as original code written for the project. Main Menu image is drawn and designed by hands. No AI-generated assets within the project.
+Some visual assets, sprites, sounds, or animation assets may originate from third-party sources or course-provided resources. These assets are used as project resources rather than as original code written for the project. The Main Menu image is drawn and designed by hand; the project contains no AI-generated assets.
 
-The gameplay scripts and systems were written and configured specifically for this project, including player movement, pooling, enemy health, breakable objects, checkpoints, saving/loading, chest interaction, apple collection, pause functionality, and scene management. 
+The gameplay scripts and systems were written and configured specifically for this project, including player movement, pooling, enemy health, breakable objects, checkpoints, saving/loading, chest interaction, item collection, pause functionality, and scene management. 
 
-Any third-party tutorials or examples used during development were used as learning references and adapted to the project's requirements rather than submitted as an unchanged tutorial project.
+Any third-party tutorials or examples used during development were used as learning references and adapted to the project's requirements, not submitted as unchanged tutorial projects.
 
 
 
