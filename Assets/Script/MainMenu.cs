@@ -5,13 +5,25 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
-       SceneManager.LoadScene("LoadingScene");
+        // Reset defeated enemies for a fresh game.
+        EnemyNPC.ResetAllDefeatedEnemies();
+
+        // Clear previous checkpoint data.
+        PlayerPrefs.DeleteKey("LastX");
+        PlayerPrefs.DeleteKey("LastY");
+        PlayerPrefs.DeleteKey("LastZ");
+        PlayerPrefs.DeleteKey("HasLastLocation");
+        PlayerPrefs.DeleteKey("A4Checkpoint");
+
+        PlayerPrefs.Save();
+
+        // Start the loading scene.
+        SceneManager.LoadScene("LoadingScene");
     }
 
     public void QuitGame()
     {
-        Application.Quit();
-
         Debug.Log("Quit Game");
+        Application.Quit();
     }
 }

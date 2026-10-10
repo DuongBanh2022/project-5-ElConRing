@@ -101,7 +101,6 @@ GameObject:
   - component: {fileID: 4282876603841163765}
   - component: {fileID: 2515279352458055216}
   - component: {fileID: 3372018024140538677}
-  - component: {fileID: 2536646077617440321}
   m_Layer: 6
   m_Name: ZombieWarrior
   m_TagString: Enemy
@@ -215,8 +214,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  moveDistance: 3
-  maxHP: 10
+  patrolDistance: 3
+  detectionRange: 8
+  attackRange: 1.5
+  attackCooldown: 1.5
+  attackAnimationTime: 0.7
+  attackDamage: 1
+  maxHealth: 3
+  animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
 --- !u!50 &2515279352458055216
 Rigidbody2D:
   serializedVersion: 5
@@ -290,21 +296,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &2536646077617440321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1140409485138595432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9e1707acd3e94949b922d9f4d7c2d2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 2
-  moveDistance: 3
-  maxHP: 3
 --- !u!1001 &1140409484386850330
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,8 +1,16 @@
+
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyNPC : MonoBehaviour
 {
+    private const string DefeatedEnemiesKey = "EnemyDefeatedIDs";
+    private static HashSet<string> defeatedEnemyIDs;
+
+    [Header("Enemy Save ID")]
+    [SerializeField] private string enemyID = "ForestEnemy_01";
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float patrolDistance = 3f;
@@ -52,6 +60,16 @@ public class EnemyNPC : MonoBehaviour
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         currentHealth = maxHealth;
+
+        LoadDefeatedEnemies();
+
+        if (!string.IsNullOrWhiteSpace(enemyID) &&
+            defeatedEnemyIDs.Contains(enemyID))
+        {
+            isDead = true;
+            Destroy(gameObject);
+            return;
+        }
 
         Debug.Log("Enemy HP: " + currentHealth + "/" + maxHealth);
     }
@@ -161,6 +179,12 @@ public class EnemyNPC : MonoBehaviour
         float direction =
             Mathf.Sign(targetX - transform.position.x);
 
+        if (direction == 0f)
+        {
+            StopMoving();
+            return;
+        }
+
         rb.linearVelocity = new Vector2(
             direction * moveSpeed,
             rb.linearVelocity.y
@@ -171,6 +195,9 @@ public class EnemyNPC : MonoBehaviour
 
     private void StopMoving()
     {
+        if (rb == null)
+            return;
+
         rb.linearVelocity = new Vector2(
             0f,
             rb.linearVelocity.y
@@ -182,19 +209,19 @@ public class EnemyNPC : MonoBehaviour
         float direction =
             Mathf.Sign(targetX - transform.position.x);
 
-        if (direction != 0)
+        if (direction != 0f)
             FaceDirection(direction);
     }
 
     private void FaceDirection(float direction)
     {
-        if (spriteRenderer != null)
-            spriteRenderer.flipX = direction < 0;
+        if (spriteRenderer != null && direction != 0f)
+            spriteRenderer.flipX = direction < 0f;
     }
 
     private void Attack()
     {
-        if (player == null || isDead)
+        if (player == null || isDead || isAttacking)
             return;
 
         isAttacking = true;
@@ -220,9 +247,7 @@ public class EnemyNPC : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning(
-                "Player does not have PMovement!"
-            );
+            Debug.LogWarning("Player does not have PMovement!");
         }
 
         nextAttackType = nextAttackType == 1 ? 2 : 1;
@@ -256,14 +281,109 @@ public class EnemyNPC : MonoBehaviour
 
     private void Die()
     {
+        if (isDead)
+            return;
+
         isDead = true;
 
         if (rb != null)
             rb.linearVelocity = Vector2.zero;
 
-        Debug.Log("Enemy defeated!");
+        SaveDefeatedEnemy();
+
+        Debug.Log("Enemy defeated and saved: " + enemyID);
 
         Destroy(gameObject);
+    }
+
+    private void LoadDefeatedEnemies()
+    {
+        if (defeatedEnemyIDs != null)
+            return;
+
+        defeatedEnemyIDs = new HashSet<string>();
+
+        string savedIDs =
+            PlayerPrefs.GetString(DefeatedEnemiesKey, "");
+
+        if (string.IsNullOrEmpty(savedIDs))
+            return;
+
+        foreach (string id in savedIDs.Split('|'))
+        {
+            if (!string.IsNullOrWhiteSpace(id))
+                defeatedEnemyIDs.Add(id);
+        }
+    }
+
+    private void SaveDefeatedEnemy()
+    {
+        if (string.IsNullOrWhiteSpace(enemyID))
+        {
+            Debug.LogWarning(
+                "Enemy ID is empty. Enemy defeat was not saved.",
+                this
+            );
+            return;
+        }
+
+        LoadDefeatedEnemies();
+        defeatedEnemyIDs.Add(enemyID);
+
+        PlayerPrefs.SetString(
+            DefeatedEnemiesKey,
+            string.Join("|", defeatedEnemyIDs)
+        );
+
+        PlayerPrefs.Save();
+    }
+
+    // Called by MainMenu when the player chooses New Game.
+    public static void ResetAllDefeatedEnemies()
+    {
+        PlayerPrefs.DeleteKey(DefeatedEnemiesKey);
+        PlayerPrefs.Save();
+
+        defeatedEnemyIDs = new HashSet<string>();
+
+        Debug.Log("New Game: all defeated enemies reset.");
+    }
+
+    public static void ResetDefeatedEnemy(string id)
+    {
+        if (string.IsNullOrWhiteSpace(id))
+            return;
+
+        LoadStaticDefeatedEnemies();
+
+        defeatedEnemyIDs.Remove(id);
+
+        PlayerPrefs.SetString(
+            DefeatedEnemiesKey,
+            string.Join("|", defeatedEnemyIDs)
+        );
+
+        PlayerPrefs.Save();
+    }
+
+    private static void LoadStaticDefeatedEnemies()
+    {
+        if (defeatedEnemyIDs != null)
+            return;
+
+        defeatedEnemyIDs = new HashSet<string>();
+
+        string savedIDs =
+            PlayerPrefs.GetString(DefeatedEnemiesKey, "");
+
+        if (string.IsNullOrEmpty(savedIDs))
+            return;
+
+        foreach (string id in savedIDs.Split('|'))
+        {
+            if (!string.IsNullOrWhiteSpace(id))
+                defeatedEnemyIDs.Add(id);
+        }
     }
 
     private void OnDisable()
@@ -292,4 +412,3 @@ public class EnemyNPC : MonoBehaviour
         );
     }
 }
-
