@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DiamondCollectible : MonoBehaviour
+public class Apple : MonoBehaviour
 {
     [Header("Completion Panel")]
     [SerializeField] private GameObject completionPanel;
@@ -30,7 +30,7 @@ public class DiamondCollectible : MonoBehaviour
     {
         collected = true;
 
-        Debug.Log("DIAMOND COLLECTED!");
+        Debug.Log("APPLE COLLECTED!");
         Debug.Log("LEVEL COMPLETE!");
 
         if (completionPanel != null)

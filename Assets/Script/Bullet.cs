@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PooledBullet : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     [SerializeField] private int damage = 1;
     public float speed = 8f;
@@ -33,28 +33,29 @@ public class PooledBullet : MonoBehaviour
             ReturnToPool();
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Enemy damage
-        if (other.CompareTag("Enemy"))
+        EnemyNPC enemy = other.GetComponent<EnemyNPC>();
+
+        if (enemy == null)
+            enemy = other.GetComponentInParent<EnemyNPC>();
+
+        if (enemy != null)
         {
             Debug.Log("BULLET HIT ENEMY!");
 
-            EnemyNPC enemy = other.GetComponent<EnemyNPC>();
+            enemy.TakeDamage(1);
 
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-            }
-
-            ReturnToPool();
-
-            return;
+            // Return the bullet to your pool here
+            // if your project uses object pooling.
         }
+    
 
-        // Breakable object damage
+
+    // Breakable object damage
         WallHP breakable =
-            other.GetComponent<WallHP>();
+                other.GetComponent<WallHP>();
 
         if (breakable != null)
         {
@@ -78,7 +79,4 @@ public class PooledBullet : MonoBehaviour
         }
     }
 }
-
-
-
 

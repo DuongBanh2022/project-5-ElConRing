@@ -1,126 +1,295 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class EnemyNPC : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float moveDistance = 3f;
+    [SerializeField] private float patrolDistance = 3f;
 
-    [Header("Health")]
-    [SerializeField] private int maxHP = 3;
-    [SerializeField] private EnemyHealthBar healthBar;
+    [Header("Player Detection")]
+    [SerializeField] private float detectionRange = 8f;
+    [SerializeField] private float attackRange = 1.5f;
 
-    private int currentHP;
-    private Vector2 startPosition;
+    [Header("Attack")]
+    [SerializeField] private float attackCooldown = 1.5f;
+    [SerializeField] private float attackAnimationTime = 0.7f;
+    [SerializeField] private int attackDamage = 1;
+
+    [Header("Enemy Health")]
+    [SerializeField] private int maxHealth = 3;
+    private int currentHealth;
+
+    [Header("References")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
     private Rigidbody2D rb;
+    private Transform player;
 
-    private bool movingRight = true;
+    private Vector2 startPosition;
+    private int patrolDirection = 1;
+    private int nextAttackType = 1;
+
+    private bool isAttacking;
+    private bool isDead;
+
+    private float nextAttackTime;
+    private float attackEndTime;
+
+    public int CurrentHealth => currentHealth;
+    public int MaxHealth => maxHealth;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        if (rb == null)
-        {
-            Debug.LogError(
-                "EnemyNPC needs a Rigidbody2D on the Enemy!"
-            );
-        }
-    }
-
-    private void Start()
-    {
         startPosition = transform.position;
 
-        currentHP = maxHP;
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
 
-        if (healthBar != null)
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        currentHealth = maxHealth;
+
+        Debug.Log("Enemy HP: " + currentHealth + "/" + maxHealth);
+    }
+
+    private void Update()
+    {
+        if (isDead || Time.timeScale == 0f)
+            return;
+
+        FindPlayer();
+
+        if (player == null)
+            return;
+
+        float distance = Vector2.Distance(
+            transform.position,
+            player.position
+        );
+
+        if (distance <= detectionRange)
         {
-            healthBar.UpdateHealth(currentHP, maxHP);
+            FaceTarget(player.position.x);
+
+            if (distance <= attackRange && !isAttacking)
+            {
+                if (Time.time >= nextAttackTime)
+                    Attack();
+            }
         }
 
-        Debug.Log(
-            "Enemy spawned with HP: " +
-            currentHP +
-            "/" +
-            maxHP
-        );
+        if (isAttacking && Time.time >= attackEndTime)
+        {
+            isAttacking = false;
+
+            if (animator != null)
+                animator.SetBool("IsAttacking", false);
+        }
     }
 
     private void FixedUpdate()
     {
-        // Stop enemy while the game is paused.
-        if (Time.timeScale == 0f)
+        if (isDead || Time.timeScale == 0f)
             return;
 
-        if (rb == null)
+        if (isAttacking)
+        {
+            StopMoving();
+            return;
+        }
+
+        if (player != null)
+        {
+            float distance = Vector2.Distance(
+                transform.position,
+                player.position
+            );
+
+            if (distance <= detectionRange)
+            {
+                if (distance > attackRange)
+                    MoveTowards(player.position.x);
+                else
+                    StopMoving();
+
+                return;
+            }
+        }
+
+        Patrol();
+    }
+
+    private void FindPlayer()
+    {
+        if (player != null)
             return;
 
-        // Calculate how far the enemy has moved
-        // from its original position.
-        float distanceFromStart =
-            rb.position.x - startPosition.x;
+        GameObject playerObject =
+            GameObject.FindGameObjectWithTag("Player");
 
-        // Change direction at the right boundary.
-        if (distanceFromStart >= moveDistance)
+        if (playerObject != null)
         {
-            movingRight = false;
+            player = playerObject.transform;
+            Debug.Log("Enemy found Player: " + player.name);
         }
+    }
 
-        // Change direction at the left boundary.
-        else if (distanceFromStart <= -moveDistance)
-        {
-            movingRight = true;
-        }
+    private void Patrol()
+    {
+        float leftLimit = startPosition.x - patrolDistance;
+        float rightLimit = startPosition.x + patrolDistance;
 
-        float direction = movingRight ? 1f : -1f;
+        if (transform.position.x >= rightLimit)
+            patrolDirection = -1;
+        else if (transform.position.x <= leftLimit)
+            patrolDirection = 1;
 
-        // Move using Rigidbody2D physics.
+        rb.linearVelocity = new Vector2(
+            patrolDirection * moveSpeed,
+            rb.linearVelocity.y
+        );
+
+        FaceDirection(patrolDirection);
+    }
+
+    private void MoveTowards(float targetX)
+    {
+        float direction =
+            Mathf.Sign(targetX - transform.position.x);
+
         rb.linearVelocity = new Vector2(
             direction * moveSpeed,
             rb.linearVelocity.y
         );
+
+        FaceDirection(direction);
+    }
+
+    private void StopMoving()
+    {
+        rb.linearVelocity = new Vector2(
+            0f,
+            rb.linearVelocity.y
+        );
+    }
+
+    private void FaceTarget(float targetX)
+    {
+        float direction =
+            Mathf.Sign(targetX - transform.position.x);
+
+        if (direction != 0)
+            FaceDirection(direction);
+    }
+
+    private void FaceDirection(float direction)
+    {
+        if (spriteRenderer != null)
+            spriteRenderer.flipX = direction < 0;
+    }
+
+    private void Attack()
+    {
+        if (player == null || isDead)
+            return;
+
+        isAttacking = true;
+        attackEndTime = Time.time + attackAnimationTime;
+        nextAttackTime = Time.time + attackCooldown;
+
+        StopMoving();
+
+        Debug.Log("ENEMY ATTACKING PLAYER!");
+
+        if (animator != null)
+        {
+            animator.SetInteger("AttackType", nextAttackType);
+            animator.SetBool("IsAttacking", true);
+        }
+
+        PMovement playerMovement =
+            player.GetComponent<PMovement>();
+
+        if (playerMovement != null)
+        {
+            playerMovement.TakeDamage(attackDamage);
+        }
+        else
+        {
+            Debug.LogWarning(
+                "Player does not have PMovement!"
+            );
+        }
+
+        nextAttackType = nextAttackType == 1 ? 2 : 1;
     }
 
     public void TakeDamage(int damage)
     {
-        currentHP -= damage;
+        Debug.Log("Enemy TakeDamage called! Damage: " + damage);
 
-        currentHP = Mathf.Max(currentHP, 0);
+        if (isDead)
+        {
+            Debug.LogWarning("Enemy is already dead!");
+            return;
+        }
+
+        if (damage <= 0)
+        {
+            Debug.LogWarning("Damage must be greater than zero!");
+            return;
+        }
+
+        currentHealth = Mathf.Max(0, currentHealth - damage);
 
         Debug.Log(
-            "Enemy HP: " +
-            currentHP +
-            "/" +
-            maxHP
+            "ENEMY HP: " + currentHealth + "/" + maxHealth
         );
 
-        // Update the HP bar.
-        if (healthBar != null)
-        {
-            healthBar.UpdateHealth(
-                currentHP,
-                maxHP
-            );
-        }
-
-        // Enemy dies at 0 HP.
-        if (currentHP <= 0)
-        {
+        if (currentHealth <= 0)
             Die();
-        }
     }
 
     private void Die()
     {
-        Debug.Log("ENEMY DEFEATED!");
+        isDead = true;
 
-        // Disable the enemy instead of destroying it.
-        // This is safer for the pooled/project setup.
-        gameObject.SetActive(false);
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
+
+        Debug.Log("Enemy defeated!");
+
+        Destroy(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
+
+        isAttacking = false;
+
+        if (animator != null)
+            animator.SetBool("IsAttacking", false);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(
+            transform.position,
+            detectionRange
+        );
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(
+            transform.position,
+            attackRange
+        );
     }
 }
-
-
-
 

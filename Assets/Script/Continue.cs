@@ -19,7 +19,7 @@ public class ContinueButton : MonoBehaviour
         {
             Debug.Log("Saved checkpoint found. Continuing game.");
 
-            SceneManager.LoadScene("ContinueScreen");
+            SceneManager.LoadScene("ContinueScene");
         }
         else
         {

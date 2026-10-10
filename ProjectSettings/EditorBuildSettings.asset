@@ -12,10 +12,10 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScene.unity
     guid: 0e0bc125bc750334fa3add25d154c2a2
   - enabled: 1
-    path: Assets/Scenes/ContinueScreen.unity
+    path: Assets/Scenes/ContinueScene.unity
     guid: d8430366ec8eea14696e98f8f1c4c439
   - enabled: 1
-    path: Assets/Scenes/ExitScreen.unity
+    path: Assets/Scenes/ExitScene.unity
     guid: c973785631e31864382bdc63c3312ab6
   - enabled: 1
     path: Assets/Scenes/Gameplay.unity

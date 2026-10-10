@@ -34,7 +34,7 @@ public class QuitButton : MonoBehaviour
         Time.timeScale = 1f;
 
         // Return to Main Menu.
-        SceneManager.LoadScene("ExitScreen");
+        SceneManager.LoadScene("ExitScene");
     }
 }
 

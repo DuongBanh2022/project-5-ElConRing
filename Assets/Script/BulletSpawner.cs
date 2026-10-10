@@ -121,12 +121,12 @@ public class BulletSpawner : MonoBehaviour
                 facingLeft ? 180f : 0f
             );
 
-        PooledBullet pooledBullet =
-            bullet.GetComponent<PooledBullet>();
+        Bullet Bullet =
+            bullet.GetComponent<Bullet>();
 
-        if (pooledBullet != null)
+        if (Bullet != null)
         {
-            pooledBullet.SetPool(Pool);
+           Bullet.SetPool(Pool);
         }
         else
         {
