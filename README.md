@@ -1,5 +1,6 @@
 # El Con Ring's Game Documentation
 
+- Developed by Duong Banh (886635994)
 - GitHub Link: https://github.com/DuongBanh2022/project-5-ElConRing
 
 ## Project Overview
@@ -27,9 +28,10 @@ The game consists of a main menu, loading scene, gameplay scene, basic combat in
 | `WallHP.cs` | Implements health and damage behavior for breakable objects. |
 | `CheckpointTrigger.cs` | Detects checkpoint entry and saves checkpoint information using `PlayerPrefs`. |
 | `PauseManager.cs` | Controls the pause menu, gameplay pausing, and resuming. |
+| `SaveManager.cs`  |  Controls the save position before exiting the game. |
 | `QuitMenu.cs` | Saves the player's current position before returning to the Main Menu. |
 | `QuitGame.cs` | Exits the application from the Main Menu. |
-| `CheckpointSaver.cs` | Saves and loads the player's last saved position. |
+| `SaveCheckPoint.cs` | Saves and loads the player's last saved position. |
 | `Reset.cs` | Clears saved player data for testing. |
 | `Chest.cs` | Detects nearby chest interaction and reveals the apple reward when opened. |
 | `Apple.cs` | Handles apple collection and displays the level-completion panel. |
@@ -54,7 +56,7 @@ The MainMenu scene is the game's starting scene.
 
 **Interaction**
 
-The player first sees the press-any-button screen. After input is detected, the main menu appears. Selecting New Game loads the `LoadingScene`, while Continue loads gameplay using saved player data.
+The player first sees the Press Any Button screen. After input is detected, the main menu appears. Selecting New Game loads the `LoadingScene`, while Continue loads gameplay using saved player data.
 
 ### LoadingScenes (New/Continue/Exit)
 
@@ -129,7 +131,7 @@ The project uses `PlayerPrefs` to save the player's last position and checkpoint
 
 ### Requirement 8 — Lighting / Material / Shader
 
-The Gameplay scene includes a 2D lighting or material visual effect to provide an additional visual treatment beyond the basic sprites and tilemap.
+The Gameplay scene includes a 2D lighting or material visual effect to add visual treatment beyond the basic sprites and tilemap.
 
 ## Third-Party Assets, Packages, and Tutorials
 
@@ -141,7 +143,7 @@ The project uses Unity's built-in systems and packages, including:
 - Unity Physics 2D for Rigidbody2D, Collider2D, and trigger interactions.
 - Unity Animator for player movement and swing animations.
 
-Some visual assets, sprites, sounds, or animation assets may originate from third-party sources or course-provided resources. These assets are used as project resources rather than as original code written for the project. The Main Menu image is drawn and designed by hand; the project contains no AI-generated assets.
+All visual assets, sprites, sounds, characters, or animation assets originated from third-party sources, such as Unity's Asset Store and YouTube for audio sources. These assets are used as project resources rather than as original code written for the project. The Main Menu image is drawn and designed by hand; the project contains no AI-generated assets.
 
 The gameplay scripts and systems were written and configured specifically for this project, including player movement, pooling, enemy health, breakable objects, checkpoints, saving/loading, chest interaction, item collection, pause functionality, and scene management. 
 
