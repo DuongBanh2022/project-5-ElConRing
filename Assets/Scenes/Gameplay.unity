@@ -233,6 +233,9 @@ GameObject:
   - component: {fileID: 31732756}
   - component: {fileID: 31732755}
   - component: {fileID: 31732754}
+  - component: {fileID: 31732758}
+  - component: {fileID: 31732759}
+  - component: {fileID: 31732760}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -336,13 +339,104 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31732753}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.1, y: -4.23, z: -0.0136778755}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0052891006, w: 0.99998605}
+  m_LocalPosition: {x: -0.06000042, y: 3.19, z: 0.0096972445}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2039597778}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &31732758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31732753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 3
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.314
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 5
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 0000000003819490c93960fdb391b5f9ef8788b3236154fe
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 0, y: -0.00000011920929, z: 0}
+    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
+  m_PointLightInnerAngle: 295.87
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 2.79
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+--- !u!95 &31732759
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31732753}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1b993a1ddefff9e4b88a076ef33f2923, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!111 &31732760
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31732753}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: 22de6d68a60ca214ebc5ba2518323bbf, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 22de6d68a60ca214ebc5ba2518323bbf, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &143291469
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,7 +703,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Thanks for Playing,
+  m_text: "Thanks for Playing, \n\nPress Esc to Exit the Game"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4150,7 +4244,7 @@ GameObject:
   - component: {fileID: 1189371858}
   - component: {fileID: 1189371857}
   m_Layer: 0
-  m_Name: TX Chest
+  m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19475,7 +19569,7 @@ Transform:
   m_GameObject: {fileID: 1751029874}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -121.85, y: -11.38, z: 0}
+  m_LocalPosition: {x: -124.01, y: -11.42, z: 0}
   m_LocalScale: {x: 7.245741, y: 7.245741, z: 7.245741}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -19780,6 +19874,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wooden Aarakocra
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303430041946652916, guid: 5dce428bbfe1c0f41818d7bc39cef7a7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8083765816775874636, guid: 5dce428bbfe1c0f41818d7bc39cef7a7,
         type: 3}
@@ -20297,11 +20396,12 @@ RectTransform:
   - {fileID: 2085977832}
   - {fileID: 466431706}
   - {fileID: 530873108}
+  - {fileID: 31732756}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -12.15, y: -9.72}
+  m_AnchoredPosition: {x: -12.15, y: -9.6}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2039597779
@@ -20321,6 +20421,8 @@ MonoBehaviour:
   checkpointNumber: 1
   checkpointText: {fileID: 530873106}
   displayDuration: 2
+  lightAnimator: {fileID: 31732759}
+  activationTrigger: Activate
 --- !u!222 &2039597780
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20602,7 +20704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Completed!!!
+  m_text: Game Complete!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -20752,7 +20854,6 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 711907170}
-  - {fileID: 31732756}
   - {fileID: 148468166}
   - {fileID: 1664405297}
   - {fileID: 694285052}
@@ -20764,9 +20865,9 @@ SceneRoots:
   - {fileID: 1642740976}
   - {fileID: 2057296290}
   - {fileID: 1173070022}
-  - {fileID: 398560170}
-  - {fileID: 2047729328}
   - {fileID: 1487743812}
   - {fileID: 1060795341}
   - {fileID: 2039597778}
   - {fileID: 1779756161}
+  - {fileID: 398560170}
+  - {fileID: 2047729328}

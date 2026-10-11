@@ -13,6 +13,10 @@ public class TriggerCheckPoint : MonoBehaviour
     [SerializeField] private TMP_Text checkpointText;
     [SerializeField] private float displayDuration = 2f;
 
+    [Header("Checkpoint Light Animation")]
+    [SerializeField] private Animator lightAnimator;
+    [SerializeField] private string activationTrigger = "Activate";
+
     private bool activated;
     private Coroutine hideCoroutine;
 
@@ -34,6 +38,19 @@ public class TriggerCheckPoint : MonoBehaviour
 
         activated = true;
 
+        // Play the checkpoint light animation.
+        if (lightAnimator != null)
+        {
+            lightAnimator.SetTrigger(activationTrigger);
+        }
+        else
+        {
+            Debug.LogWarning(
+                "Checkpoint Light Animator is not assigned!", this
+            );
+        }
+
+        // Save checkpoint position.
         Vector3 savePosition = respawnPoint != null
             ? respawnPoint.position
             : transform.position;
