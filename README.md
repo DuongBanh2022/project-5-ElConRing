@@ -143,11 +143,37 @@ The project uses Unity's built-in systems and packages, including:
 - Unity Physics 2D for Rigidbody2D, Collider2D, and trigger interactions.
 - Unity Animator for player movement and swing animations.
 
-All visual assets, sprites, sounds, characters, or animation assets originated from third-party sources, such as Unity's Asset Store and YouTube for audio sources. These assets are used as project resources rather than as original code written for the project. The Main Menu image is drawn and designed by hand; the project contains no AI-generated assets.
+All visual assets, sprites, sounds, characters, or animation assets originated from third-party sources, such as Unity's Asset Store and YouTube for audio sources. These assets are used as project resources rather than as original assets made for the project. The Main Menu image is drawn and designed by hand; the project contains no AI-generated assets.
+
+The following third-party assets are:
+
+- (Enemy)
+  - https://assetstore.unity.com/packages/2d/characters/wooden-arakocra-313865
+  - https://assetstore.unity.com/packages/2d/characters/dungeon-characters-2d-260797
+
+- (Player)
+  - https://assetstore.unity.com/packages/2d/characters/free-2d-pixel-art-black-knight-pack-391858
+
+- (Platformer)
+  - https://assetstore.unity.com/packages/2d/environments/platformer-set-150023
+  - https://assetstore.unity.com/packages/2d/environments/rogue-fantasy-castle-164725
+  - https://assetstore.unity.com/packages/2d/environments/pixel-art-platformer-village-props-166114
+  - https://assetstore.unity.com/packages/2d/textures-materials/brick/18-high-resolution-wall-textures-12567
+  - https://assetstore.unity.com/packages/2d/environments/asset-fttgr-free-pixel-art-platformer-222174
+  - https://assetstore.unity.com/packages/2d/environments/pixel-art-top-down-basic-187605
+
+- (Music)
+  - https://www.youtube.com/watch?v=Kl4-HAepMtM&list=RDKl4-HAepMtM&start_radio=1
+  - https://www.youtube.com/watch?v=Z8srV5XbR0s&list=RDZ8srV5XbR0s&start_radio=1
 
 The gameplay scripts and systems were written and configured specifically for this project, including player movement, pooling, enemy health, breakable objects, checkpoints, saving/loading, chest interaction, item collection, pause functionality, and scene management. 
 
 Any third-party tutorials or examples used during development were used as learning references and adapted to the project's requirements, not submitted as unchanged tutorial projects.
+
+Following tutorial references for the project are:
+- https://www.youtube.com/watch?v=ySaPcT5hmLU&list=PLgXA5L5ma2BvEqzzeLnb7Q_4z8bz_cKmO (Metroidvania Unity Tutorial)
+- https://www.youtube.com/watch?v=XMlDgtIhtD0 (Press Any Button)
+
 
 
 
